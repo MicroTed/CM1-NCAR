@@ -4143,7 +4143,8 @@
 !          if(dowr) write(outfile,*) 'Calling graupel_init'
 !          if(dowr) write(outfile,*)
 
-         CALL nssl_2mom_init(ipctmp=0,mixphase=0,ihvol=-1,eqtset_tmp=eqtset)
+          CALL nssl_2mom_init(ipctmp=0,mixphase=0,nssl_hail_on=.false.,nssl_density_on=.false., &
+                     eqtset_tmp=eqtset,myrank=myid,mpiroot=0)
 
 
 !          if(dowr) write(outfile,*)
