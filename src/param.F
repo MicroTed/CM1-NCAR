@@ -325,13 +325,12 @@
 751      continue
          rewind(20)
       ENDIF
-      
+
       IF ( (ptype.ge.50 .and. ptype.le.54) .or. (ptype.ge.60 .and. ptype.le.63) ) THEN
          read(20,nml=p3_params,end=752)
 752      continue
          rewind(20)
       ENDIF
-      
 
       read(20,nml=param17,end=717)
 717   continue
@@ -352,7 +351,6 @@
       read(20,nml=param21,end=721)
 721   continue
       rewind(20)
-
 
       close(unit=20)
 
@@ -3147,8 +3145,6 @@
       IF ( (ptype.ge.50 .and. ptype.le.54) .or. (ptype.ge.60 .and. ptype.le.63) ) THEN
         write(outfile,NML=p3_params)
       ENDIF
-
-
 
 !--------------------------------------------------------------
 

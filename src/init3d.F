@@ -494,6 +494,7 @@
         ! this value of iinit.  If you would rather have rh=constant at 
         ! a constant height level, then set this to .true.
         maintain_rh = .false.
+
         IF ( var1 >= 0.1 ) maintain_rh = .true.
 
         do k=kb,ke

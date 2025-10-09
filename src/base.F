@@ -762,7 +762,6 @@
           rh0(i,j,k) = rhinterp(k)
         enddo
 
-
         ! get pi0 and prs0 from thv0, using hydrostatic equation
 
         do k=1,nk

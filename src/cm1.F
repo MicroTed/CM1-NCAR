@@ -484,7 +484,7 @@
       close(unit=20)
 
       ! P3:
-      write(0,*) 'cm1: ptype = ',ptype
+      !write(0,*) 'cm1: ptype = ',ptype
       IF ( ( ptype>=50 .and. ptype<=54 ) .or. (ptype>=60 .and. ptype<=63) ) THEN
         nout3d = Max(nout3d, 3)
       ENDIF
@@ -1428,8 +1428,6 @@
       u01d = 0.0
       allocate(   v01d(kb:ke) )
       v01d = 0.0
-!      allocate(   zh1d(kb:ke) )
-!      zh1d = 0.0
 
 #ifdef MPI
           call MPI_BARRIER (MPI_COMM_WORLD,ierr)

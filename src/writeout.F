@@ -4038,7 +4038,6 @@
     endif
     ENDIF
 
-
 !  end P3 diagnostics
 !--------------------------------------------------------------------------------
 !  begin ISHMAEL diagnostics

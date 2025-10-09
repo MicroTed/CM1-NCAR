@@ -1,34 +1,14 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-*.f90
+*.pyc
+*.ipynb_checkpoints
+*.egg-info
+.vscode/launch.json
+build/
+cm1.exe
+run/*.ctl
+run/*.dat
+run/onefile.F
+run_*/
+src/*.f90
+src/*.o
+src/*.mod
+.vscode/settings.json

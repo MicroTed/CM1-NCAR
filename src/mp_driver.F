@@ -103,17 +103,17 @@
 
         !$omp parallel do default(shared)  &
         !$omp private(i,j,k,n)
-   do k=1,nk
-   do j=1,nj
-   do i=1,ni
-      dum1(i,j,k)=(th0(i,j,k)+th3d(i,j,k))*(pi0(i,j,k)+pp3d(i,j,k))
-      thten(i,j,k)=dum1(i,j,k)
-      qten(i,j,k,nqv)=q3d(i,j,k,nqv)
-   enddo
-   enddo
-   enddo
+        do k=1,nk
+        do j=1,nj
+        do i=1,ni
+          dum1(i,j,k)=(th0(i,j,k)+th3d(i,j,k))*(pi0(i,j,k)+pp3d(i,j,k))
+          thten(i,j,k)=dum1(i,j,k)
+          qten(i,j,k,nqv)=q3d(i,j,k,nqv)
+        enddo
+        enddo
+        enddo
 
-   if( getdbz .and. qd_dbz.ge.1 )then
+          if( getdbz .and. qd_dbz.ge.1 )then
             !$omp parallel do default(shared)  &
             !$omp private(i,j,k,n)
             do k=1,nk
@@ -123,9 +123,9 @@
             enddo
             enddo
             enddo
-   endif
+          endif
 
-   IF(axisymm.eq.0)THEN
+          IF(axisymm.eq.0)THEN
             ! for Cartesian grid:
             !$omp parallel do default(shared)  &
             !$omp private(i,j,k,n)
@@ -136,7 +136,7 @@
             enddo
             enddo
             enddo
-   ELSE
+          ELSE
             ! for axisymmetric grid:
             !$omp parallel do default(shared)  &
             !$omp private(i,j,k,n)
@@ -147,9 +147,9 @@
             enddo
             enddo
             enddo
-   ENDIF
+          ENDIF
 
-   if( dotbud .and. td_mp.ge.1 )then
+          if( dotbud .and. td_mp.ge.1 )then
             !$omp parallel do default(shared)  &
             !$omp private(i,j,k,n)
             do k=1,nk
@@ -171,7 +171,7 @@
             enddo
             enddo
             enddo
-   endif
+          endif
 
 
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -187,9 +187,8 @@
 !ccc   Kessler scheme   cccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-   ifptype:  &
-
-      IF (ptype.eq.1) THEN
+        ifptype:  &
+        IF(ptype.eq.1)THEN
 
           call pdefq(    0.0,asq(1),ruh,rvh,rmh,rho,q3d(ib,jb,kb,1))
           call pdefq( qsmall,asq(2),ruh,rvh,rmh,rho,q3d(ib,jb,kb,2))
@@ -237,7 +236,7 @@
 !ccc   Goddard LFO scheme   cccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-      ELSEIF (ptype.eq.2) THEN
+        ELSEIF(ptype.eq.2)THEN
 
           call pdefq(    0.0,asq(1),ruh,rvh,rmh,rho,q3d(ib,jb,kb,1))
           call pdefq( qsmall,asq(2),ruh,rvh,rmh,rho,q3d(ib,jb,kb,2))
@@ -305,7 +304,7 @@
 !ccc   Thompson scheme   ccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-      ELSEIF (ptype.eq.3) THEN
+        ELSEIF(ptype.eq.3)THEN
 
           call pdefq(    0.0,asq(1),ruh,rvh,rmh,rho,q3d(ib,jb,kb,1))
           call pdefq( qsmall,asq(2),ruh,rvh,rmh,rho,q3d(ib,jb,kb,2))
@@ -319,7 +318,7 @@
           do k=1,nk
           do j=1,nj
           do i=1,ni
-            ! cm1r17:  to make things easier to understand, use same arrays
+            ! cm1r17:  to make things easier to understand, use same arrays 
             !          that are used for morrison code:
             ! dum1 = T  (this should have been calculated already)
             ! dum2 = pi (nondimensional pressure)
@@ -485,7 +484,7 @@
 !ccc   GSR LFO scheme   cccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-      ELSEIF (ptype.eq.4) THEN
+        ELSEIF(ptype.eq.4)THEN
 
           call pdefq(    0.0,asq(1),ruh,rvh,rmh,rho,q3d(ib,jb,kb,1))
           call pdefq( qsmall,asq(2),ruh,rvh,rmh,rho,q3d(ib,jb,kb,2))
@@ -504,7 +503,7 @@
 !ccc   Morrison scheme   cccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-      ELSEIF (ptype.eq.5) THEN
+        ELSEIF(ptype.eq.5)THEN
 
 !          call pdefq(    0.0,asq(1),ruh,rvh,rmh,rho,q3d(ib,jb,kb,1))
 !          call pdefq( qsmall,asq(2),ruh,rvh,rmh,rho,q3d(ib,jb,kb,2))
@@ -701,7 +700,7 @@
 !ccc   also:  reversible moist thermo. if v_t = 0   cccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-      ELSEIF (ptype.eq.6) THEN
+        ELSEIF(ptype.eq.6)THEN
 
           call pdefq(    0.0,asq(1),ruh,rvh,rmh,rho,q3d(ib,jb,kb,1))
           call pdefq( qsmall,asq(2),ruh,rvh,rmh,rho,q3d(ib,jb,kb,2))
@@ -770,7 +769,7 @@
 !  Ziegler/Mansell (NSSL) two-moment scheme
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-      ELSEIF (ptype.ge.26 .and. ptype.le.28) THEN
+        ELSEIF( ptype.ge.26 .and. ptype.le.28 )THEN
 
           DO i = 1,numq
             call pdefq(0.0,asq(i),ruh,rvh,rmh,rho,q3d(ib,jb,kb,i))
@@ -2831,12 +2830,12 @@
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 ! otherwise, stop for undefined ptype
 
-   ELSE
+        ELSE
 
           print *,'  Undefined ptype!'
           call stopcm1
 
-   ENDIF  ifptype
+        ENDIF  ifptype
 
 !CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 !CC   END microphysics   CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
