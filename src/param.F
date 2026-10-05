@@ -3913,6 +3913,7 @@
 
           ! likely maximum value (order-of-magnitude)
           ! (needed for monotonic advection schemes)
+          qmag(:) = 1.e-12
           qmag( 1) = 0.01
           qmag( 2) = 0.01
           qmag( 3) = 0.01
@@ -3922,9 +3923,10 @@
           qmag(nnc1:nnc2) = 1.e8
           qmag( lnc) = 1.0e10
           qmag( lni) = 3.0e9
+          qmag( lnh) = 1.0e4
+          IF ( nssl_hail_on ) qmag( lnhl) = 10.
           IF ( nssl_3moment ) qmag(nzl1:nzl2) = 1.0e-12
           IF ( nssl_density_on ) qmag(nvl1:nvl2) = 1.0e-5
-          qmag(:) = 1.e-12
 
 
           !----- budget stuff below here -----

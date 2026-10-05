@@ -297,8 +297,8 @@ MODULE module_mp_nssl_2mom
                           ! 4 -> Hybrid of 2 and 3: Uses minimum N from each method (z-wgt and m-wgt corrections) (Method I+II in Mansell, 2010 JAS)
   integer :: imydiagalpha = 0 ! apply MY diagnostic shape parameter for fall speeds (1=for fall speed only; 2=also for microphysics rates)
   real, public    :: rainfallfac = 1.0 ! factor to adjust rain fall speed (single moment only)
-  real, public    :: icefallfac = 1.0 ! factor to adjust ice fall speed
-  real, public    :: snowfallfac = 1.0 ! factor to adjust snow fall speed
+  real, public    :: icefallfac = 1.5 ! factor to adjust ice fall speed
+  real, public    :: snowfallfac = 1.25 ! factor to adjust snow fall speed
   real, public    :: graupelfallfac = 1.0 ! factor to adjust graupel fall speed
   real, public    :: hailfallfac = 1.0 ! factor to adjust hail fall speed
   integer, public :: icefallopt = 3 ! 1= default, 2 = Ferrier ice fall speed; 3 = adjusted Ferrier (slightly high Vt)
@@ -1021,8 +1021,19 @@ MODULE module_mp_nssl_2mom
 
      ! GHB: Needed for eqtset=2 in cm1
 !     REAL, PRIVATE ::      cv = cp - rd
-      real, private, parameter ::      cv = 717.0             ! specific heat at constant volume - air
-      REAL, PRIVATE, parameter ::      cvv = 1408.5
+!      real, private, parameter ::      cv = 717.0             ! specific heat at constant volume - air
+!      REAL, PRIVATE, parameter ::      cvv = 1408.5
+      real, private, parameter ::    cv =  1005.7 - 287.04 ! CP - R
+      real, private, parameter ::    cvv = 1408.5
+      real, private, parameter ::    cpv = 1870.0
+!      real, private, parameter ::    cpl = 4190.0
+!      real, private, parameter ::    cpi = 2106.0
+      real, private, parameter ::    xlv0 = 2501000.0
+      real, private, parameter ::    xls0 = 2834000.0
+      real, private, parameter ::    lv1 = xlv0+(cpl-cpv)*273.15
+      real, private, parameter ::    lv2 = cpl-cpv
+      real, private, parameter ::    ls1 = xls0+(cpigb-cpv)*273.15
+      real, private, parameter ::    ls2 = cpigb-cpv
      ! GHB
 
       real, parameter ::  bfnu0 = (rnu + 2.0)/(rnu + 1.0) 
@@ -10879,6 +10890,8 @@ END SUBROUTINE nssl_2mom_driver
           IF ( lf > 1 ) tmp = tmp + qx(mgs,lf)
           cvm = cv+cvv*qx(mgs,lv)+cpl*(qx(mgs,lc)+qx(mgs,lr))   &
                                   +cpigb*(tmp)
+          
+          felv(mgs) = lv1-lv2*temg(mgs)
           IF ( eqtset == 2 ) THEN
 
            felvcp(mgs) = (felv(mgs)-rw*temg(mgs))/cvm
@@ -15335,6 +15348,10 @@ END SUBROUTINE nssl_2mom_driver
           IF ( lhl > 1 ) tmp = tmp + qx(mgs,lhl)
           cvm = cv+cvv*qx(mgs,lv)+cpl*(qx(mgs,lc)+qx(mgs,lr))   &
                                   +cpigb*(tmp)
+
+          felv(mgs) = lv1-lv2*temg(mgs)
+          fels(mgs) = ls1-ls2*temg(mgs)
+          felf(mgs) = fels(mgs) - felv(mgs)
 
           IF ( eqtset == 2 ) THEN ! compact form from treating dT/dt = theta*d(pi)/dt + pi*d(theta)dt and then applied to theta assuming constant pi
           felvcp(mgs) = (felv(mgs)-rw*temg(mgs))/cvm
